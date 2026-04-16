@@ -1,6 +1,6 @@
 const generateToken = require("../middleware/generateToken");
 const User = require("../model/userModel");
-const {  errorResponse, successResponse } = require("../utills/responseHander");
+const { errorResponse, successResponse } = require("../utills/responseHander");
 
 //!  register
 //? post method 
@@ -29,7 +29,7 @@ const login = async (req, res) => {
         const user = await User.findOne({ email: email })
         if (!user) {
             //* errorResponse -> utills folder responseHandel file function
-            return errorResponse(res,404,"user not found")
+            return errorResponse(res, 404, "user not found")
         }
 
         //? register and login password match method
@@ -37,7 +37,7 @@ const login = async (req, res) => {
         const isMatch = await user.comparePassword(password)
         if (!isMatch) {
             //* errorResponse -> utills folder responseHandel file function
-            return errorResponse(res,404,"Invalid Password")
+            return errorResponse(res, 404, "Invalid Password")
         }
         //! token method
         //* generateToken -> ai function kas
@@ -70,7 +70,7 @@ const login = async (req, res) => {
 
 
     } catch (error) {
-        errorResponse(res,404,"Login user failed",error)
+        errorResponse(res, 404, "Login user failed", error)
     }
 }
 
@@ -81,61 +81,84 @@ const logoutUser = async (req, res) => {
         //* clearCookie -> cookie delete kola
         //* "token" -> ja namey cookie sava koce say name
         res.clearCookie("token")
-        successResponse(res,202,"Logout successfully")
+        successResponse(res, 202, "Logout successfully")
     } catch (error) {
-        errorResponse(res,404,"Logout successfully failed")
+        errorResponse(res, 404, "Logout successfully failed")
     }
 }
 
 
 //! get all user data show 
 const getAllUsers = async (req, res) => {
-  try {
-    //* {},('email,role) -> database thaka soto email,role data asva
-    //* -1 -> sovsas ja data create hoyca sata first asva
-    const users = await User.find({},('email role')).sort({ createdAt: -1 })
+    try {
+        //* {},('email,role) -> database thaka soto email,role data asva
+        //* -1 -> sovsas ja data create hoyca sata first asva
+        const users = await User.find({}, ('email role')).sort({ createdAt: -1 })
 
-    successResponse(res, 200, "Success Show all User", users)
-  } catch (error) {
-    errorResponse(res, 500, "Failed to fetch all user", error)
-  }
+        successResponse(res, 200, "Success Show all User", users)
+    } catch (error) {
+        errorResponse(res, 500, "Failed to fetch all user", error)
+    }
 }
 
 
 //! delete method (admin user deleted)
-const deletedUser= async (req,res)=>{
-    
-    const {id} = req.params
+const deletedUser = async (req, res) => {
 
-   try {     
-    const user = await User.findByIdAndDelete(id)
+    const { id } = req.params
 
-    if(!user){
-        return errorResponse(res,404,"User not found")
+    try {
+        const user = await User.findByIdAndDelete(id)
+
+        if (!user) {
+            return errorResponse(res, 404, "User not found")
+        }
+
+        return successResponse(res, 200, "Users deleted successfully")
+    } catch (error) {
+        errorResponse(res, 404, "Failed admin delete user", errorResponse)
     }
-
-    return successResponse(res,200,"Users deleted successfully")
-   } catch (error) {
-    errorResponse(res,404,"Failed admin delete user",errorResponse)
-   }
 }
 
 
 //! put method (admin user role update)
-const updateUserRole = async (req,res)=>{
-   const {id} = req.params
-   const {role} = req.body
- try {
-    
- const updateUser = await User.findByIdAndUpdate(id,{role},{new:true})
-  if(!updateUser){
-    return errorResponse(res,404,"User not found")
+const updateUserRole = async (req, res) => {
+    const { id } = req.params
+    const { role } = req.body
+    try {
+        const updateUser = await User.findByIdAndUpdate(id, { role }, { new: true })
 
-  }
-  successResponse(res,200,"User role Update successFully",data = updateUser)
- } catch (error) {
-    errorResponse(res,404,"Failed to update user role",error)
- }
+        if (!updateUser) {
+            return errorResponse(res, 404, "User not found")
+        }
+
+        successResponse(res, 200, "User role Update successFully", data = updateUser)
+    } catch (error) {
+        errorResponse(res, 404, "Failed to update user role", error)
+    }
+}
+
+
+//!  patch method edit user profile
+const editUserProfile = async(req,res)=>{
+   const{id} = req.params ;
+   const{username,profileImage,boi,profession} = req.body
+
+   try {
+    const updateFields ={
+    username:username,
+    profileImage:profileImage,
+    boi:boi,
+    profession:profession
+   }
+   const updateUser = await User.findByIdAndUpdate(id,updateFields,{new:true})
+   if(!updateUser){
+    return errorResponse(res,404,"User Not found")
+   }
+   successResponse(res,200,"User Profile update successfully",updateUser)
+   } catch (error) {
+    errorResponse(res,404,"Failed to update user profile")
+   }
 
 }
 
@@ -145,6 +168,7 @@ module.exports = {
     logoutUser,
     getAllUsers,
     deletedUser,
-    updateUserRole
+    updateUserRole,
+    editUserProfile
 
 }
