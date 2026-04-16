@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import avatarImg from '../assets/avatar.png'
+import { logout } from '../redux/features/auth/authSlice';
+import { useLogoutUserMutation } from '../redux/features/auth/authApi';
 
 function Navbar() {
 
@@ -10,6 +12,11 @@ function Navbar() {
   //? auth -> ja name authSlice.js ka store save korce tar name
   //* user -> ja namey localStorage save kola hoyca
   const { user } = useSelector((state) => state.auth)
+   
+  //! useDispatch -> redux ar function patanoo hoy
+  const dispatch = useDispatch()
+
+  const navigate = useNavigate()
 
   const [isDropDownOpen, setIsDropDownOpen] = useState(false)
 
@@ -34,9 +41,26 @@ function Navbar() {
   const dropDownMenus = user?.role === "admin" ?
     [...adminDropDownMenus] : [...userDropDownMenus]
 
-   //! logout function
-   const handelLogout = ()=>{
+
     
+    //* Mutation use korlar somay [] deta hoy
+  //? logoutUser -> authApi.js file ar
+  //? useLogoutUserMutation ai Mutation function name
+  const [logoutUser] = useLogoutUserMutation()
+
+   //! logout function
+   const handelLogout = async()=>{
+      try {
+        //? unwrap() -> loginUser Mutation function daka use korta hova
+        await logoutUser().unwrap()
+        //* logout -> authApi.js file ar function
+         dispatch(logout())
+         alert("Logout successfully")
+         navigate("/")
+        
+      } catch (error) {
+        console.log("Error logout",error);
+      }
    } 
   return (
     //! remixicon use ja import main.js file a
@@ -89,7 +113,7 @@ function Navbar() {
                                <Link className='dropdown-item' to={menu.path}>{menu.label}</Link>
                              </li>
                             ))}
-                            <li><Link to="/logout" className='hover:text-red-500 py-4'>Logout</Link></li>
+                            <li><Link onClick={handelLogout} className='hover:text-red-500 py-4'>Logout</Link></li>
                           </ul>
                         </div>
                       )

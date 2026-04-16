@@ -4,13 +4,12 @@ const loadUserFromLocalStorage=()=>{
     try {
         //* user -> user namay localStorage data aca ki na check
         const checkLocalStorage = localStorage.getItem('user')
-        if(checkLocalStorage === null){
-            return {user:null}
-        }
+        if(checkLocalStorage === null) return {user:null}
+
         //* JSON.parse -> user data ta json pavo tai aka JSON.parse korta hova 
         return {user:JSON.parse(checkLocalStorage)}
     } catch (error) {
-       return {user:null,error} 
+       return {user:null} 
     }
 }
 
@@ -28,7 +27,7 @@ const authSlice = createSlice({
             localStorage.setItem('user', JSON.stringify(state.user))
         },
         //! logout method
-        logout:()=>{
+        logout:(state)=>{
             state.user = null 
             //? localStorage thaka data delete
             localStorage.removeItem('user')
