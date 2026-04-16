@@ -1,5 +1,5 @@
 const express = require('express')
-const { register, login, logoutUser, getAllUsers, deletedUser } = require('../controllers/userControllers')
+const { register, login, logoutUser, getAllUsers, deletedUser, updateUserRole } = require('../controllers/userControllers')
 const verifyToken = require('../middleware/verifyToken')
 const verifyAdmin = require('../middleware/verifyAdmin')
 const router = express.Router()
@@ -23,7 +23,9 @@ router.get("/users", verifyToken , verifyAdmin , getAllUsers)
 //? 1st kas verifyToken, 2nd kas verifyAdmin ,3nd kas deletedUser
 router.delete("/users/:id", verifyToken , verifyAdmin , deletedUser )
 
-
+//! put/update router (only admin,user role update)
+//? 1st kas verifyToken, 2nd kas verifyAdmin ,3nd kas updateUserRole
+router.put("/users/:id", verifyToken, verifyAdmin , updateUserRole)
 
 
 module.exports = router    

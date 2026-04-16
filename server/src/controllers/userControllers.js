@@ -120,11 +120,31 @@ const deletedUser= async (req,res)=>{
    }
 }
 
+
+//! put method (admin user role update)
+const updateUserRole = async (req,res)=>{
+   const {id} = req.params
+   const {role} = req.body
+ try {
+    
+ const updateUser = await User.findByIdAndUpdate(id,{role},{new:true})
+  if(!updateUser){
+    return errorResponse(res,404,"User not found")
+
+  }
+  successResponse(res,200,"User role Update successFully",data = updateUser)
+ } catch (error) {
+    errorResponse(res,404,"Failed to update user role",error)
+ }
+
+}
+
 module.exports = {
     register,
     login,
     logoutUser,
     getAllUsers,
-    deletedUser
+    deletedUser,
+    updateUserRole
 
 }
