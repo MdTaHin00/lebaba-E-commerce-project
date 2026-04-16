@@ -5,9 +5,11 @@ dotenv.config()
 const mongoose = require('mongoose')
 const port = process.env.PORT
 const cors = require('cors')
+
+
 //! user routes require
 const userRoute = require('./src/routes/userRouter')
-
+const productsRoute = require('./src/routes/productRouter')
 
 //! middleware
 app.use(express.json())
@@ -18,12 +20,15 @@ app.use(cors({
 }))
 
 
-
-
 //! use userRoute
 //* first ai route tar por userRoute.js file route
 //* /api/auth/register
 app.use('/api/auth',userRoute)
+
+//! use productsRoute
+//* first ai route tar por productsRoute.js file route
+//* /api/products/
+app.use('/api/products', productsRoute)
 
 
 //! mongoose and mongoBD connection
