@@ -10,6 +10,7 @@ const cors = require('cors')
 //! user routes require
 const userRoute = require('./src/routes/userRouter')
 const productsRoute = require('./src/routes/productRouter')
+const reviewRoute = require('./src/routes/reviewRoute')
 
 //! middleware
 app.use(express.json())
@@ -22,13 +23,18 @@ app.use(cors({
 
 //! use userRoute
 //* first ai route tar por userRoute.js file route
-//* /api/auth/register
+//* /api/auth/(userRoute.js)
 app.use('/api/auth',userRoute)
 
 //! use productsRoute
 //* first ai route tar por productsRoute.js file route
-//* /api/products/
+//* /api/products/(productsRoute.js)
 app.use('/api/products', productsRoute)
+
+//! use reviewRoute
+//* first ai route tar por reviewRoute.js file route
+//* /api/reviews/(reviewRoute.js)
+app.use('/api/reviews', reviewRoute)
 
 
 //! mongoose and mongoBD connection

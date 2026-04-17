@@ -2,6 +2,9 @@ const Product = require("../model/productModel");
 const Review = require("../model/reviewModel");
 const { successResponse, errorResponse } = require("../utills/responseHander");
 
+//! last word export code
+
+
 //! add new product
 const createProducts = async (req,res)=>{
     try {
@@ -71,7 +74,76 @@ const getAllProduct= async (req,res)=>{
 }
 
 
+//! get single product
+const getSingleProduct = async (req,res)=>{
+  const {id} = req.params
+  try {
+    const product = await Product.findById(id)
+      //! populate -> anoo collection ar var run kola
+      //* author -> jar var run kortay hova tar name
+      //* email username -> ki ki var run kovo tar name
+    .populate('author',('username email'))
+
+    if(!product){
+        return errorResponse(res,404,"Product not found")
+    }
+
+    //! review find 
+    //* Review ar productId moday params ar id patanoo hoyca
+    const review = await Review.find({productId:id})
+    //! populate -> anoo collection ar var run kola
+    //* userId -> jar var run kortay hova tar name
+    //* email username -> ki ki var run kovo tar name
+    .populate('userId',('username email'))
+
+    successResponse(res,202,"Single Product and review successfully",{product,review})
+  } catch (error) {
+     errorResponse(res,404,"Failed get to single product",error)
+  }
+}
+
+
+//! update product by id
+const updateProductById = async (req,res)=>{
+   const productId = req.params.id 
+   try {
+    const updateProduct = await Product.findByIdAndUpdate(productId,{...req.body},{new:true})
+    
+    
+    if(!updateProduct){
+        return errorResponse(res,404,"Product not found")
+    }
+
+   successResponse(res,202,"Product updated successfully",updateProduct)
+
+   } catch (error) {
+      errorResponse(res,404,"Failed to update",error)
+   }
+}
+
+
+//! delete product by id 
+const deletedProductById = async (req,res)=>{
+   const productId = req.params.id;
+   try {
+     const deleteProduct = await Product.findByIdAndUpdate(productId) 
+      if(!deleteProduct){
+        errorResponse(res,404,"Product not found")
+      }
+
+      await Review.deleteMany({productId: productId})
+
+      successResponse(res,202,"Product delete successfully",productId)
+
+   } catch (error) {
+    errorResponse(res,404,"Failed to delete product",error)
+   }
+}
+
 module.exports = {
     createProducts,
-    getAllProduct
+    getAllProduct,
+    getSingleProduct,
+    updateProductById,
+    deletedProductById
 }
