@@ -55,7 +55,41 @@ const postReview = async(req,res)=>{
 }
 
 
+//! get review data for user collection ar id thaka
+const getUserReview = async(req,res)=>{
+  const userId = req.params.userId;
+  try {
+    if(!userId){
+        return errorResponse(res,404,"Missing user ID")
+    }
+
+    const reviews = await Review.find({userId:userId}).sort({createAt:-1})
+    
+    if(reviews.length === 0){
+        return successResponse(res,404,"No reviews found for this user")
+    }
+
+    successResponse(res,404,"Reviews fetched successfully", reviews)
+
+  } catch (error) {
+    errorResponse(res,404,"Failed to get users reviews",error) 
+  }
+}
+
+
+//! total reviews counts
+const getTotalReviewsCount = async(req,res)=>{
+  try {
+    //* countDocuments -> kotal data count kola
+    const totalReviews = await Review.countDocuments({})
+    successResponse(res,202,"Total reviews fetched successfully",totalReviews)
+  } catch (error) {
+    errorResponse(res,404,"Failed to get users reviews",error)
+  }
+}
+
 module.exports = {
     postReview,
-
+    getUserReview,
+    getTotalReviewsCount
 }
