@@ -1,4 +1,5 @@
 const express = require('express')
+const { postReview } = require('../controllers/reviewController')
 const router = express.Router()
 //! last work code 
 //? module.exports = router
@@ -6,6 +7,9 @@ const router = express.Router()
 
 //! add review
 //? post method
-router.post('/post-review', )
+router.post('/post-review', postReview)
+
+
+
 
 module.exports = router 

@@ -19,8 +19,8 @@ router.get("/:id", getSingleProduct)
 //? patch method
 router.patch("/update-product/:id", verifyToken, verifyAdmin, updateProductById)
 
-//! delete product 
+//! delete product (only admin ar janno)
 //? delete method 
-router.delete("/delete-product/:id", deletedProductById)
+router.delete("/delete-product/:id", verifyToken, verifyAdmin, deletedProductById)
 
 module.exports = router
