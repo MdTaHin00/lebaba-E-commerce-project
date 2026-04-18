@@ -8,10 +8,11 @@ const JWT_SECRET = process.env.JWT_SECRET
 const verifyToken = (req,res,next)=>{
     try {
         //* ai code frontend a token use kolar code
-        // const token = req.cookies.token 
+        //? token ka cookie set kola
+        const token = req.cookies.token 
         
-        //* backend ar janno token koujay payar code
-        const token = req.headers.authorization?.split(' ')[1]
+        //* backend ar postMan thaka token dakar janno
+        // const token = req.headers.authorization?.split(' ')[1]
         if(!token){
             return successResponse(res,404,"Unauthorized Access!")
         }
