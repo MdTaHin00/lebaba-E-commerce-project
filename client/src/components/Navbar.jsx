@@ -5,63 +5,78 @@ import { Link, NavLink, useNavigate } from "react-router";
 import avatarImg from '../assets/avatar.png'
 import { logout } from '../redux/features/auth/authSlice';
 import { useLogoutUserMutation } from '../redux/features/auth/authApi';
+import CartModal from '../page/shop/CartModal';
 
 function Navbar() {
 
+         //! add to cart method
+  //? cartSlice file import 
+  //* cart -> ja name store a save korce tar name 
+  //* products -> cartSlice file ar inseaer products var
+  const cartProduct = useSelector((state) => state.cart.products)
+  
+
+  const [isCartOpen, setIsCartOpen] = useState(false)
+
+  const handelCartToggle = () => {
+    setIsCartOpen(!isCartOpen)
+  }
+
+        //! auth method
   //! useSelector -> authSlice.js file modar user pai
   //? auth -> ja name authSlice.js ka store save korce tar name
   //* user -> ja namey localStorage save kola hoyca
   const { user } = useSelector((state) => state.auth)
-   
+
   //! useDispatch -> redux ar function patanoo hoy
   const dispatch = useDispatch()
-
   const navigate = useNavigate()
 
   const [isDropDownOpen, setIsDropDownOpen] = useState(false)
-
   const handelDropDownToggle = () => {
     setIsDropDownOpen(!isDropDownOpen)
   }
+
+  //* Mutation use korlar somay [] deta hoy
+  //? logoutUser -> authApi.js file ar
+  //? useLogoutUserMutation ai Mutation function name
+  const [logoutUser] = useLogoutUserMutation()
+  //! logout function
+  const handelLogout = async () => {
+    try {
+      //? unwrap() -> loginUser Mutation function daka use korta hova
+      await logoutUser().unwrap()
+      //* logout -> authApi.js file ar function
+      dispatch(logout())
+      alert("Logout successfully")
+      navigate("/")
+    } catch (error) {
+      console.log("Error logout", error);
+    }
+  }
+
+        //! navbar method
   const userDropDownMenus = [
     { label: "Dashboard", path: "/dashboard" },
     { label: "Profile", path: "/dashboard/profile" },
     { label: "Payments", path: "/dashboard/payments" },
     { label: "Orders", path: "/dashboard/orders" },
   ]
-
   const adminDropDownMenus = [
     { label: "Dashboard", path: "/dashboard/admin" },
     { label: "Manage", path: "/dashboard/manage-orders" },
     { label: "All Orders", path: "/dashboard/manage-orders" },
     { label: "Add Product", path: "/dashboard/add-product" },
   ]
-
   //? role based dropdown show
   const dropDownMenus = user?.role === "admin" ?
     [...adminDropDownMenus] : [...userDropDownMenus]
 
 
-    
-    //* Mutation use korlar somay [] deta hoy
-  //? logoutUser -> authApi.js file ar
-  //? useLogoutUserMutation ai Mutation function name
-  const [logoutUser] = useLogoutUserMutation()
 
-   //! logout function
-   const handelLogout = async()=>{
-      try {
-        //? unwrap() -> loginUser Mutation function daka use korta hova
-        await logoutUser().unwrap()
-        //* logout -> authApi.js file ar function
-         dispatch(logout())
-         alert("Logout successfully")
-         navigate("/")
-        
-      } catch (error) {
-        console.log("Error logout",error);
-      }
-   } 
+
+
+
   return (
     //! remixicon use ja import main.js file a
     <div>
@@ -91,8 +106,8 @@ function Navbar() {
                 isActive ? "text-red-500 font-medium" : ""
               } to="/search"><i className="ri-search-line"></i></NavLink>
             </span>
-            <span><button className="hover:text-primary">
-              <i className="ri-shopping-bag-line"></i><sup className="text-sm inline-block text-white rounded-full w-5 h-5 bg-red-500 text-center font-bold">0</sup>
+            <span><button onClick={handelCartToggle} className="hover:text-primary">
+              <i className="ri-shopping-bag-line"></i><sup className="text-sm inline-block text-white rounded-full w-5 h-5 bg-red-500 text-center font-bold">{cartProduct.length}</sup>
             </button>
             </span>
             <span className='hover:text-red-500'>
@@ -103,15 +118,15 @@ function Navbar() {
                     <img onClick={handelDropDownToggle} src={user?.profileImage || avatarImg} className='size-6 cursor-pointer rounded-full' />
                     {
                       isDropDownOpen && (
-                        <div style={{padding:"18px"}} 
-                        className='border border-gray-300 absolute rounded-lg z-40 right-1 lg:right-0 w-48 shadow-lg  bg-fuchsia-100'>
+                        <div style={{ padding: "18px" }}
+                          className='border border-gray-300 absolute rounded-lg z-40 right-1 lg:right-0 w-48 shadow-lg  bg-fuchsia-100'>
                           <ul className='space-y-2'>
-                            {dropDownMenus.map((menu,index)=>(
-                             <li 
-                             onClick={()=>handelDropDownToggle(false)}
-                             key={index}>
-                               <Link className='dropdown-item' to={menu.path}>{menu.label}</Link>
-                             </li>
+                            {dropDownMenus.map((menu, index) => (
+                              <li
+                                onClick={() => handelDropDownToggle(false)}
+                                key={index}>
+                                <Link className='dropdown-item' to={menu.path}>{menu.label}</Link>
+                              </li>
                             ))}
                             <li><Link onClick={handelLogout} className='hover:text-red-500 py-4'>Logout</Link></li>
                           </ul>
@@ -126,6 +141,11 @@ function Navbar() {
             </span>
           </div>
         </nav>
+
+        {/* cart model  */}
+        {
+          isCartOpen && <CartModal cartProduct={cartProduct} isCartOpen={isCartOpen} handelCartToggle={handelCartToggle}/>
+        }
       </header>
     </div>
   )

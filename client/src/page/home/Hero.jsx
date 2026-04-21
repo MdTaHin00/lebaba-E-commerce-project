@@ -5,7 +5,7 @@ import { Link } from "react-router";
 function Hero() {
     return (
         <div>
-            <section className=" section__container header__container ">
+            <section className=" section__container header__container bg-primary ">
                 <div className="header__content z-30 ">
                     <h4>UP TO 20% DISCOUNT ON</h4>
                     <h1>Girl's Fashion</h1>

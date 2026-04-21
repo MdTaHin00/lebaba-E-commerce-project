@@ -25,7 +25,8 @@ const productSchema = new mongoose.Schema({
         //*type hova mongoose ar Schema ar moderal ObjectId
         type : mongoose.Schema.Types.ObjectId,
         //* ref:'User' -> userModel ar replans hova
-        ref:'User'
+        ref:'User',
+        required: true
     }
 },{
     //? timestamps:true -> data update & create somay dehaka jay

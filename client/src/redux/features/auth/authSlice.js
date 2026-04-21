@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 const loadUserFromLocalStorage=()=>{
     try {
         //* user -> user namay localStorage data aca ki na check
+        //* user login kola user id asva
         const checkLocalStorage = localStorage.getItem('user')
         if(checkLocalStorage === null) return {user:null}
 

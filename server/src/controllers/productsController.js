@@ -52,7 +52,7 @@ const getAllProduct= async (req,res)=>{
             const max = parseFloat(maxPrice) 
             if(!isNaN(min) && !isNaN(max)){
                 //? $get -> small number , $lte -> bro number
-                filter.price = {$get:min, $lte:max}
+                filter.price = {$gte:min, $lte:max}
             }
         }
 
@@ -62,11 +62,14 @@ const getAllProduct= async (req,res)=>{
         const totalPage = Math.ceil( totalProduct / parseInt(limit))
 
         const product = await Product.find(filter)
-        .skip(skip).limit(parseInt(limit))
+        .skip(skip)
+        .limit(parseInt(limit))
         //! populate -> anoo collection ar var run kola
         //* author -> jar var run kortay hova tar name
         //* email username -> ki ki var run kovo tar name
         .populate('author','email username')
+        .sort({createdAt: -1})
+
         successResponse(res,202,"Products fetched successfully",data={product,totalProduct,totalPage})
     } catch (error) {
         errorResponse(res,404,"Failed to get all Product",error)

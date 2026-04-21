@@ -8,6 +8,7 @@ const productApi = createApi({
     reducerPath: 'productsApi',
     baseQuery: fetchBaseQuery({
         //! backend url 
+        //* get_base_url -> utils folder getBase_url file function
         baseUrl: `${get_Base_url()}/api/products`,
         //? backend a cors ar moda credentials true tai akana ai code
         credentials: 'include'
@@ -72,7 +73,7 @@ const productApi = createApi({
             query: ({ id, ...bodyData }) => ({
                 //* url -> operal baseUrl por bake url
                 url: `/update-product/${id}`,
-                method: 'POST',
+                method: 'PATCH',
                 body: bodyData
             }),
             //* new product add hova tai ai kas
@@ -86,7 +87,7 @@ const productApi = createApi({
         deleteProduct: builder.mutation({
             query: (id) => ({
                 url: `/${id}`,
-                method: 'POST',
+                method: 'DELETE',
             }),
             //* new product add hova tai ai kas
             //*  ata id deya kas , tai ai code         

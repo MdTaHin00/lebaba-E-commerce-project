@@ -16,7 +16,7 @@ import { get_Base_url } from '../../../utils/getBase_url'
         baseUrl:`${get_Base_url()}/api/auth`,
         credentials:'include'
     }),
-    tagTypes:['User'],
+    tagTypes:['Users'],
     endpoints:(builder)=>({
         registerUser : builder.mutation({
             query:(newUser)=>({
