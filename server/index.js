@@ -15,6 +15,8 @@ const userRoute = require('./src/routes/userRouter')
 const productsRoute = require('./src/routes/productRouter')
 const reviewRoute = require('./src/routes/reviewRoute')
 const orderRoute = require('./src/routes/orderRouter')
+const statsRouter = require('./src/routes/statsRouter')
+
 
 //! middleware
 app.use(express.json())
@@ -46,6 +48,12 @@ app.use('/api/reviews', reviewRoute)
 //* first ai route tar por orderRoute.js file route
 //* /api/reviews/(orderRoute.js)
 app.use('/api/orders', orderRoute)
+
+
+//! use statsRouter
+//* first ai route tar por statsRouter.js file route
+//* /api/reviews/(statsRouter.js)
+app.use('/api/stats', statsRouter)
 
 
 //! mongoose and mongoBD connection
