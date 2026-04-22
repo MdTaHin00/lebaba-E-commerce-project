@@ -7,6 +7,7 @@ import Login from "../components/Login";
 import Register from "../components/Register";
 import ShopPage from "../page/shop/ShopPage";
 import SingleProducts from "../page/shop/productDetails/SingleProducts";
+import PaymentSuccess from "../page/shop/PaymentSuccess";
 
 const router = createBrowserRouter([
     {
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
             {
                 path: '/categories/:categoryName',
                 element: <CategoryPage />
+            },
+            {
+                path:'/success',
+                element:<PaymentSuccess/>
             },
             {
                 path: "/about",

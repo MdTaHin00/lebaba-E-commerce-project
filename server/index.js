@@ -6,11 +6,15 @@ const mongoose = require('mongoose')
 const port = process.env.PORT
 const cors = require('cors')
 
+//! body-parser import 
+const bodyParser = require('body-parser')
+
 
 //! user routes require
 const userRoute = require('./src/routes/userRouter')
 const productsRoute = require('./src/routes/productRouter')
 const reviewRoute = require('./src/routes/reviewRoute')
+const orderRoute = require('./src/routes/orderRouter')
 
 //! middleware
 app.use(express.json())
@@ -19,6 +23,7 @@ app.use(cors({
     origin:"http://localhost:5173",
     credentials:true
 }))
+app.use(bodyParser.json())
 
 
 //! use userRoute
@@ -35,6 +40,12 @@ app.use('/api/products', productsRoute)
 //* first ai route tar por reviewRoute.js file route
 //* /api/reviews/(reviewRoute.js)
 app.use('/api/reviews', reviewRoute)
+
+
+//! use orderRoute
+//* first ai route tar por orderRoute.js file route
+//* /api/reviews/(orderRoute.js)
+app.use('/api/orders', orderRoute)
 
 
 //! mongoose and mongoBD connection
