@@ -1,9 +1,9 @@
 import React from 'react'
-import OrderSummary from './OrderSummary'
 import { useDispatch } from 'react-redux'
 import { removeFromCart, updateQuantity } from '../../redux/features/cart/cartSlice'
+import OrderSummary from './payment/OrderSummary'
 
-function CartModal({ cartProduct, isCartOpen, handelCartToggle }) {
+function CartModal({ cartProduct , handelCartToggle }) {
     const disPatch = useDispatch()
 
     const handelUpdateQuantity = (type,id)=>{

@@ -7,7 +7,7 @@ import Login from "../components/Login";
 import Register from "../components/Register";
 import ShopPage from "../page/shop/ShopPage";
 import SingleProducts from "../page/shop/productDetails/SingleProducts";
-import PaymentSuccess from "../page/shop/PaymentSuccess";
+import PaymentSuccess from "../page/shop/payment/PaymentSuccess";
 
 const router = createBrowserRouter([
     {

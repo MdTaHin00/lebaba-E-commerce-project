@@ -1,11 +1,11 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { clearCart } from '../../redux/features/cart/cartSlice'
 
 //! stripe code frontend use kolar janno import 
 import { loadStripe } from '@stripe/stripe-js';
-import { get_Base_url } from '../../utils/getBase_url';
 import axios from 'axios'
+import { get_Base_url } from '../../../utils/getBase_url';
+import { clearCart } from '../../../redux/features/cart/cartSlice';
 
 function OrderSummary() {
     const disPatch = useDispatch()
