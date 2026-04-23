@@ -4,32 +4,49 @@ import authSlice from './features/auth/authSlice'
 import productApi from './features/products/productApi'
 import reviewsApi from './features/reviews/reviewsApi'
 import cartSlice from './features/cart/cartSlice'
+import orderApi from './features/orders/orderApi'
+import statsApi from './features/stats/stats'
 
 export const store = configureStore({
   reducer: {
+    
     //! api slice store = authApi
     //*  reducerPath -> authApi.js file var
     [authApi.reducerPath]: authApi.reducer,
 
-     //! slice store = authSlice
+    //! slice store = authSlice
     //* auth -> ja nama a authSlice akana same hova
-    auth:authSlice,
+    auth: authSlice,
 
-     //! api slice store  = productApi
+    //! api slice store  = productApi
     //*  reducerPath -> productApi.js file var
-     [productApi.reducerPath]: productApi.reducer,
+    [productApi.reducerPath]: productApi.reducer,
 
-     //! api slice store  = reviewsApi
+    //! api slice store  = reviewsApi
     //*  reducerPath -> reviewsApi.js file var
     [reviewsApi.reducerPath]: reviewsApi.reducer,
 
-         //! slice store = cartSlice
+    //! slice store = cartSlice
     //* auth -> ja nama a cartSlice akana same hova
-    cart:cartSlice,
+    cart: cartSlice,
+
+    //! api slice store  = orderApi
+    //*  reducerPath -> orderApi.js file var  
+    [orderApi.reducerPath]: orderApi.reducer,
+
+    //! api slice store  = statsApi
+    //*  reducerPath -> statsApi.js file var 
+    [statsApi.reducerPath]: statsApi.reducer
 
 
   },
   middleware: (getDefaultMiddleware) =>
     //* akadik middleware use way
-    getDefaultMiddleware().concat(authApi.middleware, productApi.middleware, reviewsApi.middleware)
+    getDefaultMiddleware().concat(
+      authApi.middleware,
+      productApi.middleware,
+      reviewsApi.middleware,
+      orderApi.middleware,
+      statsApi.middleware
+    )
 })

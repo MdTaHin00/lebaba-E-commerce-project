@@ -14,6 +14,7 @@ import { get_Base_url } from '../../../utils/getBase_url'
     reducerPath:'authApi',
     baseQuery:fetchBaseQuery({
         baseUrl:`${get_Base_url()}/api/auth`,
+        //? backend a cors ar moda credentials true tai akana ai code
         credentials:'include'
     }),
     tagTypes:['Users'],

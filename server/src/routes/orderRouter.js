@@ -5,11 +5,15 @@ const router = express.Router()
 //* module.export = router
 
 
+
+//* create-checkout-session,confirm-payment ai two router kas frontend shop folder ar payment folder use kola hoyca
 //? create checkout session
 router.post('/create-checkout-session', makePaymentRequest)
 
 //? confirm payment  
 router.post('/confirm-payment', confirmPayment)
+
+
 
 //? get orders by email 
 router.get('/:email', getOrdersByEmail)
