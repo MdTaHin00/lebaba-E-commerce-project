@@ -1,5 +1,5 @@
 
-1 -> user
+1 -> user 
 2 -> product
 3 -> reviews
 4 -> order + stripe system a
