@@ -57,7 +57,7 @@ function Navbar() {
 
         //! navbar method
   const userDropDownMenus = [
-    { label: "Dashboard", path: "/dashboard" },
+    { label: "Dashboard", path: "/dashboard/user" },
     { label: "Profile", path: "/dashboard/profile" },
     { label: "Payments", path: "/dashboard/payments" },
     { label: "Orders", path: "/dashboard/orders" },

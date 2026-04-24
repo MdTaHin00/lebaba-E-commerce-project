@@ -9,6 +9,7 @@ import ShopPage from "../page/shop/ShopPage";
 import SingleProducts from "../page/shop/productDetails/SingleProducts";
 import PaymentSuccess from "../page/shop/payment/PaymentSuccess";
 import DashBoardLayout from "../dashBoard/DashBoardLayout";
+import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
     {
@@ -58,14 +59,15 @@ const router = createBrowserRouter([
     {
          //? ata absolute path tai "/dashboard"
         path: "/dashboard",
-        element: <DashBoardLayout/> ,
+        //* PrivateRoute -> raper route tai ar moda children deta hova
+        element: <PrivateRoute><DashBoardLayout/></PrivateRoute> ,
         children: [
         //* children use kolay <outlet> use korta hoy
         
         //? root file ata thakava 
         //* ai route ar dashboard page and ata page thakva
         {
-          path:"",
+          path:"user",
           element:<div>user dashboard</div>
         },  
         {
@@ -94,27 +96,27 @@ const router = createBrowserRouter([
             //! admin route
             {
                 path:"admin",
-                element:<div>admin dashboard</div>
+                element:<PrivateRoute role="admin"><div>admin dashboard</div></PrivateRoute>
             },
             {
                 path:"add-product",
-                element:<div>add product</div>
+                element:<PrivateRoute role="admin"><div>add product</div></PrivateRoute>
             },
             {
-                path:"manage-product",
-                element:<div>manage product</div>
+                path:"manage-products",
+                element:<PrivateRoute role="admin"><div>manage product</div></PrivateRoute>
             },
             {
                 path:"update-product/:id",
-                element:<div>update product</div>
+                element:<PrivateRoute role="admin"><div>update product</div></PrivateRoute>
             },
             {
                 path:"manage-orders",
-                element:<div>manage-orders</div>
+                element:<PrivateRoute role="admin"><div>manage-orders</div></PrivateRoute>
             },
             {
                 path:"users",
-                element:<div>users</div>
+                element:<PrivateRoute role="admin"><div>users</div></PrivateRoute>
             },
         ]
     }
