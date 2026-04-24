@@ -5,7 +5,7 @@ const statsApi = createApi({
     reducerPath:"statsApi",
     baseQuery:fetchBaseQuery({
         //* backed url
-        baseUrl:`${get_Base_url}/api/stats`,
+        baseUrl:`${get_Base_url()}/api/stats`,
         credentials:'include'
     }),
 

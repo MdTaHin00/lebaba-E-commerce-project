@@ -5,7 +5,7 @@ import productApi from './features/products/productApi'
 import reviewsApi from './features/reviews/reviewsApi'
 import cartSlice from './features/cart/cartSlice'
 import orderApi from './features/orders/orderApi'
-import statsApi from './features/stats/stats'
+import statsApi from './features/stats/statsApi'
 
 export const store = configureStore({
   reducer: {

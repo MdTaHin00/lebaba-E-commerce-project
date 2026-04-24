@@ -10,6 +10,7 @@ import SingleProducts from "../page/shop/productDetails/SingleProducts";
 import PaymentSuccess from "../page/shop/payment/PaymentSuccess";
 import DashBoardLayout from "../dashBoard/DashBoardLayout";
 import PrivateRoute from "./PrivateRoute";
+import UserDashMain from "../dashBoard/user/userDashboard/UserDashMain";
 
 const router = createBrowserRouter([
     {
@@ -68,7 +69,7 @@ const router = createBrowserRouter([
         //* ai route ar dashboard page and ata page thakva
         {
           path:"user",
-          element:<div>user dashboard</div>
+          element:<UserDashMain/>
         },  
         {
               //? ata relative path tai "orders"  , "/" ata nai  

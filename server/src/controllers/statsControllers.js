@@ -6,14 +6,14 @@ const { errorResponse, successResponse } = require("../utills/responseHander")
 
 //!  get user stats by email 
 const getUserStatsByEmail = async (req, res) => {
-    const email = req.params.email
+    const {email} = req.params
 
     if (!email) {
         return errorResponse(res, 404, "Email is required")
     }
 
     try {
-        const user = await Order.findOne({ email: email })
+        const user = await User.findOne({email: email})
 
         if (!user) {
             return errorResponse(res, 404, "User Not Found")
@@ -22,11 +22,11 @@ const getUserStatsByEmail = async (req, res) => {
         //? total payment
         //* $match,$group -> mongoBD default code
         const totalPaymentResult = await Order.aggregate([
-            { $match: { email: email } },
+            { $match: {email:email } },
             { $group: { _id: null, totalAmount: { $sum: "$amount" } } }
         ])
 
-        const totalPaymentsAmount = totalPaymentResult.length > 0 ? totalPaymentResult[0] : 0 ;
+        const totalPaymentsAmount = totalPaymentResult.length > 0 ? totalPaymentResult[0].totalAmount : 0 ;
 
         //! total review
         const totalReviews = await Review.countDocuments({userId:user._id})
@@ -36,7 +36,7 @@ const getUserStatsByEmail = async (req, res) => {
         const totalPurchasedProducts = purchasedProductsIds.length;
         
         successResponse(res,202,"Fetched User stats successfully",{
-            totalPaymentResult,
+            totalPaymentResult: Number(totalPaymentsAmount),
             totalReviews,
             totalPurchasedProducts
         })
