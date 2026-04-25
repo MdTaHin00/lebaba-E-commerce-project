@@ -16,7 +16,9 @@ const generateToken = async (userId) => {
         const token = jsonwebtoken.sign({userId:user._id, role:user.role},JWT_SECRET ,{expiresIn:"1h"})
         //* return korta hova na hola kas korva na
          return token;
-
+      
+         console.log(token);
+         
     } catch (error) {
       console.log("Error Generating token",error);
     }

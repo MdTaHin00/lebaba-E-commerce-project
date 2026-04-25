@@ -41,7 +41,7 @@ function AdminDashBoard() {
             <p className='text-xs italic'>Admin DashBoard</p>
           </div>
 
-          <hr className='my-3' />
+          <p className='border border-gray-500 mt-1'></p>
 
           <ul className='space-y-3 font-medium mt-10'>
             {

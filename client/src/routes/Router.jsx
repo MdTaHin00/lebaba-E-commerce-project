@@ -17,6 +17,7 @@ import UserPayments from "../dashBoard/user/payments/UserPayments";
 import UserReviews from "../dashBoard/user/reviews/UserReviews";
 import UserProfile from "../dashBoard/user/profile/UserProfile";
 import AdminDashMain from "../dashBoard/admin/adminDashBoard/AdminDashMain";
+import ManageUsers from "../dashBoard/admin/adminUser/ManageUsers";
 
 const router = createBrowserRouter([
     {
@@ -127,7 +128,7 @@ const router = createBrowserRouter([
             },
             {
                 path:"users",
-                element:<PrivateRoute role="admin"><div>users</div></PrivateRoute>
+                element:<PrivateRoute role="admin"><ManageUsers/></PrivateRoute>
             },
         ]
     }

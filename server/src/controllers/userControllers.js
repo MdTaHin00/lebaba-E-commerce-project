@@ -93,9 +93,9 @@ const getAllUsers = async (req, res) => {
     try {
         //* {},('email,role) -> database thaka soto email,role data asva
         //* -1 -> sovsas ja data create hoyca sata first asva
-        const users = await User.find({}, ('email role')).sort({ createdAt: -1 })
+        const users = await User.find({},'email role').sort({ createdAt: -1 })
 
-        successResponse(res, 200, "Success Show all User", users)
+        successResponse(res, 200, "Success Show all User", data = users)
     } catch (error) {
         errorResponse(res, 500, "Failed to fetch all user", error)
     }
@@ -104,9 +104,7 @@ const getAllUsers = async (req, res) => {
 
 //! delete method (admin user deleted)
 const deletedUser = async (req, res) => {
-
-    const { id } = req.params
-
+    const {id} = req.params
     try {
         const user = await User.findByIdAndDelete(id)
 

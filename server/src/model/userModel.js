@@ -15,7 +15,7 @@ const userSchema = new Schema({
         type: String,
         default: 'user'
     },
-    createdAt: { type: Date, default: Date.now() }
+    createdAt: { type: Date, default: Date.now }
 })
 
 //! hash password method

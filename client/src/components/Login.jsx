@@ -17,12 +17,14 @@ function Login() {
   //? loginUser -> authApi.js file ar
   //? useLoginUserMutation ai Mutation function name
   const[loginUser] = useLoginUserMutation()
+
   const onSubmit = async(data) =>{
      try {
       //? unwrap() -> loginUser Mutation function daka use korta hova
        const response = await loginUser(data).unwrap()
        //? user ar data diesear  
         const {token,user} = response
+        
        setSuccess("Login Successfully")
       //? dispatch -> ata deya authSlice.js ar poda data pai
       //? setUser -> authSlice.js file function

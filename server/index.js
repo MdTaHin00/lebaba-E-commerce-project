@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 const port = process.env.PORT
 const cors = require('cors')
 
+const cookieParser = require("cookie-parser");
 //! body-parser import 
 const bodyParser = require('body-parser')
 
@@ -26,6 +27,7 @@ app.use(cors({
     credentials:true
 }))
 app.use(bodyParser.json())
+app.use(cookieParser());
 
 
 //! use userRoute
