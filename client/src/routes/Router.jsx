@@ -11,6 +11,11 @@ import PaymentSuccess from "../page/shop/payment/PaymentSuccess";
 import DashBoardLayout from "../dashBoard/DashBoardLayout";
 import PrivateRoute from "./PrivateRoute";
 import UserDashMain from "../dashBoard/user/userDashboard/UserDashMain";
+import UserOrders from "../dashBoard/user/orders/UserOrders";
+import OrderDetails from "../dashBoard/user/orders/OrderDetails";
+import UserPayments from "../dashBoard/user/payments/UserPayments";
+import UserReviews from "../dashBoard/user/reviews/UserReviews";
+import UserProfile from "../dashBoard/user/profile/UserProfile";
 
 const router = createBrowserRouter([
     {
@@ -43,6 +48,10 @@ const router = createBrowserRouter([
             {
                 path: "/about",
                 element: <div>About</div>
+            },
+            {
+                path:"/orders/:orderId",
+                element:<OrderDetails/>
             }
         ]
     },
@@ -76,22 +85,22 @@ const router = createBrowserRouter([
               //* search path -> dashboard/orders
                //* ai route ar dashboard page and orders page thakva
               path:"orders",
-             element:<div>orders</div>
+             element:<UserOrders/>
             },
             {
                  //? ata relative path tai "payments"  , "/" ata nai 
                  //* search path -> dashboard/payments
                   //* ai route ar dashboard page and payments page thakva
                  path:"payments",
-                element:<div>payment</div>
+                element:<UserPayments/>
             },
             {
                 path:"profile",
-                element:<div>profile</div>
+                element:<UserProfile/>
             },
             {
                 path:"reviews",
-                element:<div>reviews</div>
+                element:<UserReviews/>
             },
 
             //! admin route

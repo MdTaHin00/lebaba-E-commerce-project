@@ -35,7 +35,7 @@ function UserDashMain() {
         datasets:[
             {
                 label:"User Stats",
-                data:[totalPaymentResult,totalPurchasedProducts*30,totalReviews+30*2 ],
+                data:[totalPaymentResult,totalPurchasedProducts*20,totalReviews+50 ],
                 backgroundColor:[
                     'rgba(153, 102, 255, 0.2)',
                     'rgba(75, 192, 192, 0.2)',

@@ -35,11 +35,13 @@ const reviewsApi = createApi({
     }),
 
     //! get reviews by user id 
-    getReviewsByUserId: builder.query({
+    getReviewsByUserId:builder.query({
         query:(userId)=>({
-            url:`${userId}`
+            url:`/${userId}`,
+            method:"GET"
         }),
-        providesTags:(result) => result ? [{type:"Reviews",id:result[0] ?.email}] : []
+        // providesTags:(result) => result ? [{type:"Reviews",id:result[0] ?.email}] : []
+        providesTags: (result) => result ? [{ type: "Reviews", id: result._id }] : []
     })
     })
 })

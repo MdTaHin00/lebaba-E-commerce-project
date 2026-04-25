@@ -5,7 +5,7 @@ const orderApi = createApi({
     reducerPath: 'orderApi',
     baseQuery: fetchBaseQuery({
         //* backend url 
-        baseUrl: `${get_Base_url}/api/orders`,
+        baseUrl: `${get_Base_url()}/api/orders`,
         //? backend a cors ar moda credentials true tai akana ai code
         credentials: 'include'
     }),
@@ -19,7 +19,7 @@ const orderApi = createApi({
                 //* operal baseUrl por url 
                 url: `/${email}`,
                 method: "GET",
-                providesTags: ['Orders']
+                providesTags: ['Order']
             })
         }),
 
