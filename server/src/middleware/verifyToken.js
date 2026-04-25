@@ -17,7 +17,7 @@ const verifyToken = (req,res,next)=>{
             return successResponse(res,404,"Unauthorized Access!")
         }
         //* operal ja token payce ta verify kola code 
-        const decoded = jwt.verify(token,JWT_SECRET)
+        const decoded = jwt.verify(token, JWT_SECRET)
          if(!decoded.userId){
             return res.status.send({message:"Access denied"})
          }
@@ -32,3 +32,5 @@ const verifyToken = (req,res,next)=>{
 }
 
 module.exports = verifyToken
+
+

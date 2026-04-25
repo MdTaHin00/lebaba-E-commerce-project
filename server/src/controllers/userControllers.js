@@ -63,7 +63,7 @@ const login = async (req, res) => {
                 email: user.email,
                 role: user.role,
                 profileImage: user.profileImage,
-                boi: user.boi,
+                bio: user.bio,
                 profession: user.profession
             }
         })
@@ -140,27 +140,43 @@ const updateUserRole = async (req, res) => {
 
 
 //!  patch method edit user profile
-const editUserProfile = async(req,res)=>{
-   const{id} = req.params ;
-   const{username,profileImage,boi,profession} = req.body
+const editUserProfile = async (req, res) => {
+    const { id } = req.params;
+    const { username, profileImage, bio, profession } = req.body;
 
-   try {
-    const updateFields ={
-    username:username,
-    profileImage:profileImage,
-    boi:boi,
-    profession:profession
-   }
-   const updateUser = await User.findByIdAndUpdate(id,updateFields,{new:true})
-   if(!updateUser){
-    return errorResponse(res,404,"User Not found")
-   }
-   successResponse(res,200,"User Profile update successfully",updateUser)
-   } catch (error) {
-    errorResponse(res,404,"Failed to update user profile")
-   }
+    try {
+        // Only include fields that exist
+        const updateFields = {};
 
-}
+        if (username) updateFields.username = username;
+        if (profileImage) updateFields.profileImage = profileImage;
+        if (bio) updateFields.bio = bio;
+        if (profession) updateFields.profession = profession;
+
+        const updatedUser = await User.findByIdAndUpdate(
+            id,
+            updateFields,
+            { new: true, runValidators: true }
+        );
+
+        if (!updatedUser) {
+            return errorResponse(res, 404, "User not found");
+        }
+
+        return successResponse(res, 200, "User profile updated successfully", {
+            _id: updatedUser._id,
+            username: updatedUser.username,
+            email: updatedUser.email,
+            role: updatedUser.role,
+            profileImage: updatedUser.profileImage,
+            bio: updatedUser.bio,
+            profession: updatedUser.profession,
+        });
+
+    } catch (error) {
+        return errorResponse(res, 500, "Failed to update user profile", error);
+    }
+};
 
 module.exports = {
     register,

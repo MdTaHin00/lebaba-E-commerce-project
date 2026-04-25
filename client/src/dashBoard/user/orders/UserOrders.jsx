@@ -5,6 +5,7 @@ import Loading from '../../../components/Loading';
 import { Link } from "react-router";
 
 function UserOrders() {
+    // const navigate = useNavigate()
 
     //* authApi thaka import 
     const{user} = useSelector((state) => state.auth);
@@ -12,6 +13,11 @@ function UserOrders() {
     //* useGetUserStatsQuery ata akta email received kordoo tai user ar moda email
     //* useGetUserStatsQuery ata query method tai  {}
     const{data,isLoading} = useGetOrdersByEmailQuery(user?.email)
+
+    //     if (!data) {
+    //     alert("Please order from the shop");
+    //     navigate("/shop")
+    // }
 
     if(isLoading){
         return <Loading/>

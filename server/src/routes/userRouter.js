@@ -33,7 +33,7 @@ router.put("/users/:id", verifyToken, verifyAdmin , updateUserRole)
 //! patch router  (edit user profile)
 //?  verifyToken function kas hola tarpor ,,
 //?  ai editUserProfile function kas korva
-router.patch("/edit-profile/:id", verifyToken ,  editUserProfile)
+router.patch("/edit-profile/:id" , editUserProfile)
 
 
 module.exports = router    

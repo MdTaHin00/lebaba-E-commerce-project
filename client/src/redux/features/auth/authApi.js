@@ -42,9 +42,17 @@ import { get_Base_url } from '../../../utils/getBase_url'
                 url:"/logout",
                 method:'POST'
             })
+        }),
+        //* mutation -> patch method tai mutation
+        editProfileUser: builder.mutation({
+            query:({id,profileData})=>({
+                url:`/edit-profile/${id}`,
+                method:"PATCH",
+                body:profileData
+            })
         })
     })
 })
 
-export const {useRegisterUserMutation,useLoginUserMutation,useLogoutUserMutation} = authApi
+export const {useRegisterUserMutation,useLoginUserMutation,useLogoutUserMutation,useEditProfileUserMutation} = authApi
 export default authApi 
