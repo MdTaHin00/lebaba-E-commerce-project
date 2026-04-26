@@ -35,36 +35,41 @@ const orderApi = createApi({
 
         //! get all orders
         getAllOrders: builder.query({
-            query:()=>({
-                url:"/",
-                method:"GET",
-                providesTags:['Order']
+            query: () => ({
+                url: "/",
+                method: "GET",
+                providesTags: ['Order']
             })
         }),
 
         //! update order status by id
         //* backend patch function tai -> builder.mutation
-        updateOrderStatus:builder.mutation({
-          query:({id,status}) =>({
-            url:`/update-order-status/${id}`,
-            method:"PATCH",
-            body:status
-        }),
-        invalidatesTags:["Order"]
+        updateOrderStatus: builder.mutation({
+            query: ({ id, status }) => ({
+                url: `/update-order-status/${id}`,
+                method: "PATCH",
+                body: {status}
+            }),
+            invalidatesTags: ["Order"]
         }),
 
         //! delete orders by id 
         //* backend delete function tai -> builder.mutation
-        deleteOrderById:builder.mutation({
-         query:(id) => ({
-            url:`/delete-order/${id}`,
-            method:"DELETE"
-         }),
-         invalidatesTags:(result,error,id) => [{type:"Order",id}]
+        deleteOrderById: builder.mutation({
+            query: (id) => ({
+                url: `/delete-order/${id}`,
+                method: "DELETE"
+            }),
+            invalidatesTags: (result, error, id) => [{ type: "Order", id }]
         })
     })
 })
 
-export const {useGetOrdersByEmailQuery,useGetOrdersByIdQuery,useGetAllOrdersQuery,useUpdateOrderStatusMutation,useDeleteOrderByIdMutation} = orderApi ;
+export const {
+    useGetOrdersByEmailQuery,
+    useGetOrdersByIdQuery,
+    useGetAllOrdersQuery,
+    useUpdateOrderStatusMutation,
+    useDeleteOrderByIdMutation } = orderApi;
 
 export default orderApi

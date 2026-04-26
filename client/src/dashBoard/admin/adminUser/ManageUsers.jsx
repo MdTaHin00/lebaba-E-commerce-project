@@ -26,8 +26,7 @@ function ManageUsers() {
   //! delete user function
   const handelDeleteUser = async (id) => {
     try {
-      const response = await deleteUser(id).unwrap()
-      console.log(response);
+       await deleteUser(id).unwrap()
       alert("User deleted successfully")
       refetch()
     } catch (error) {
