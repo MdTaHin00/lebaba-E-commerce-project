@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useDeleteUserMutation, useGetAllUsersQuery } from '../../../redux/features/auth/authApi'
 import Loading from '../../../components/Loading'
 import { Link } from "react-router";
+import UpdateUserModal from './UpdateUserModal';
 
 function ManageUsers() {
   const [isModalOpen, setIsModelOpen] = useState(false)
@@ -36,9 +37,15 @@ function ManageUsers() {
 
 
   //! edit user function
- const handelEditUser = async () =>{
-  
- }
+  const handelEditUser = async (user) => {
+    setSelectedUser(user)
+    setIsModelOpen(true)
+  }
+
+  const handelCloseModel = async () => {
+    setIsModelOpen(false)
+    setSelectedUser(null)
+  }
 
   return (
     <>
@@ -114,7 +121,7 @@ function ManageUsers() {
                         </td>
                         <td className="border-t-0 px-6 align-center border-l-0 border-r-0 text-xs whitespace-nowrap p-4">
                           <button
-                          onClick={()=> handelEditUser(user)}
+                            onClick={() => handelEditUser(user)}
                             className="flex gap-1 items-center hover:text-sky-600 bg-sky-500 text-white px-1 rounded-md py-1"
                           >
                             <i className="ri-edit-2-line"></i> Edit
@@ -135,8 +142,13 @@ function ManageUsers() {
             </div>
           </div>
         </div>
-
       </section>
+
+      {isModalOpen && <UpdateUserModal
+        user={selectedUser}
+        handelCloseModel={handelCloseModel}
+         refetch={refetch}
+      />}
     </>
   )
 }
