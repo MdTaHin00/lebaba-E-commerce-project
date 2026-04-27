@@ -57,6 +57,7 @@ function ShopPage() {
 
   //*  product,totalProduct,totalPage -> ai name backend thaka ja name dece sai name hova
   const { product, totalProduct, totalPage } = data.data || {};
+  
   const startProduct = (currentPage - 1) * productPerPage + 1
   const endProduct = startProduct + product.length - 1;
 

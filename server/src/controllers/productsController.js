@@ -7,28 +7,30 @@ const { successResponse, errorResponse } = require("../utills/responseHander");
 
 //! add new product
 const createProducts = async (req,res)=>{
-    try {
-        const product = await new Product({...req.body}).save();
+ try {
+        const newProduct =  new Products({
+            ...req.body
+        })
 
-        //! rating calculate method
-        //* Review ar productId moday product id patanoo hoyca
-        const review = await Review.find({productId:product._id})
+        const product =  await newProduct.save();
 
-        if(review.length > 0){
-            //! total rating
-            const totalRating = review.reduce((acc,pre)=> acc + pre.rating, 0)
-            //! average rating 
-            const averageRating = totalRating / review.length ;
-            product.rating = averageRating
-            await product.save()
+        // calculate avarage rating
+        const reviews = await Review.find({productId: product._id })
+        
+        if(reviews.length > 0) {
+            const totalRating =  reviews.reduce((acc, review) => acc + review.rating, 0 )
+            const avarageRating = totalRating / reviews.length;
+            product.rating = avarageRating;
+            await product.save();
         }
 
-        successResponse(res,202,"Products Create Successfully",product)
-
+        return successResponse(res, 200, "Product created successfully", product)
+        
     } catch (error) {
-    errorResponse(res,404,"Products Create Failed",error) 
-    }  
+        return errorResponse(res, 500, "Failed to create new product", error)
+    }
 }
+
 
 
 //! get all product show

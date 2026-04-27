@@ -14,7 +14,6 @@ const productSchema = new mongoose.Schema({
     oldPrice:Number,
     image:{
         type:String,
-        required:true
     },
     color:String,
     rating:{

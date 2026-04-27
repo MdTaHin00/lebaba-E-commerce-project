@@ -7,10 +7,10 @@ const router = express.Router()
 //? module.exports = router
 
 //! create add products(only admin ar janno)
-router.post("/create-product" , createProducts )
+router.post("/create-product" ,  verifyToken, verifyAdmin,  createProducts )
 
 //! get all data show 
-router.get("/", getAllProduct)
+router.get("/", verifyToken, verifyAdmin, getAllProduct)
 
 //! get single product
 router.get("/:id", getSingleProduct)
