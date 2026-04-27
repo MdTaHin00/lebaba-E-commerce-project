@@ -45,6 +45,7 @@ function ShopPage() {
     limit: productPerPage
   })
 
+  console.log(data);
   
   //! page change function 
   const handelPageChange = (pageNumber) => {
@@ -56,8 +57,10 @@ function ShopPage() {
   if (isLoading) return <div><Loading/></div>
 
   //*  product,totalProduct,totalPage -> ai name backend thaka ja name dece sai name hova
-  const { product, totalProduct, totalPage } = data.data || {};
+  const {product, totalProduct, totalPage } = data.data || {};
   
+  
+
   const startProduct = (currentPage - 1) * productPerPage + 1
   const endProduct = startProduct + product.length - 1;
 
@@ -91,7 +94,7 @@ function ShopPage() {
             <ProductCards filterProducts={product} />
 
             {/* pagination */}
-            {product.length>0 &&   <div className='mt-6 flex justify-center space-x-2'>
+            {product.length >0 &&   <div className='mt-6 flex justify-center space-x-2'>
               <button className='px-4 py-2 bg-gray-200 rounded-full'
                 onClick={() => handelPageChange(currentPage - 1)}
                 disabled={currentPage === 1}
