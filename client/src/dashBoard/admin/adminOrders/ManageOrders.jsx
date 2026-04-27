@@ -4,6 +4,7 @@ import Loading from '../../../components/Loading';
 import { Link } from 'react-router';
 import EditOrders from './EditOrders';
 import SingleProducts from '../../../page/shop/productDetails/SingleProducts';
+import ViewsOrders from './ViewsOrders';
 
 
 const getStatusColor = (status) => {
@@ -25,6 +26,8 @@ function ManageOrders() {
     const [isModelOpen, setIsModelOpen] = useState(false);
     const [selectedOrders, setSelectedOrders] = useState(null)
 
+    const[viewsModelOpen,setViewsModelOpen] = useState(false)
+
     //? useGetOrdersByIdQuery -> orderApi.js thakay import 
     //* useGetOrdersByIdQuery  query method tai {}
     const { data, isLoading, refetch } = useGetAllOrdersQuery()
@@ -40,6 +43,8 @@ function ManageOrders() {
 
     const orders = data.data || {}
 
+    console.log(orders);
+    
     //! delete order by id
     const handelDeleteClick = async (orderId) => {
         await deleteOrderById(orderId).unwrap();
@@ -47,6 +52,16 @@ function ManageOrders() {
         refetch()
     }
 
+    //! views orders
+    const handelViewsOrders =(order)=>{
+        setSelectedOrders(order)
+        setViewsModelOpen(true)
+    }
+const handelViewsOrdersClose = async()=>{
+      setViewsModelOpen(false)
+      setSelectedOrders(null)
+}
+    
 
     //! edit orders 
     const handelEditOrder = (order) => {
@@ -86,12 +101,19 @@ function ManageOrders() {
                             </td>
                             <td className="py-3 px-4 border-b">{new Date(order?.updatedAt).toLocaleDateString()}</td>
                             <td className="py-3 px-4   border-b flex items-center space-x-4">
-                                <Link
+                                {/* <Link
                                     to={order?._id}
                                     className="text-blue-500 hover:underline"
                                 >
                                     View
-                                </Link>
+                                </Link> */}
+
+                                <button
+                                    onClick={() => handelViewsOrders(order)}
+                                    className="text-green-500 hover:underline"
+                                >
+                                    View
+                                </button>
                                 <button
                                     onClick={() => handelEditOrder(order)}
                                     className="text-green-500 hover:underline"
@@ -111,7 +133,6 @@ function ManageOrders() {
             </table>
 
             {/* Edit order */}
-
             {
                 isModelOpen && (
                     <EditOrders
@@ -119,10 +140,18 @@ function ManageOrders() {
                     order={selectedOrders}
                     refetch={refetch}
                 />
-
                 )
             }
 
+ {/* views orders */}
+ {
+    viewsModelOpen && (
+        <ViewsOrders 
+         handelViewsOrdersClose={handelViewsOrdersClose}
+         order={selectedOrders}
+        />
+    )
+ }
 
 
         </section>

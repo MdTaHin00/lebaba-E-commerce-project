@@ -30,8 +30,6 @@ function ManageProducts() {
   }
 
   const {product,totalPage,totalProduct} = data.data;
-  console.log(product,totalPage,totalProduct);
-
 
 
   //! handel delete product
