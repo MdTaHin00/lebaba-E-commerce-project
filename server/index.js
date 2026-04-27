@@ -17,23 +17,27 @@ const productsRoute = require('./src/routes/productRouter')
 const reviewRoute = require('./src/routes/reviewRoute')
 const orderRoute = require('./src/routes/orderRouter')
 const statsRouter = require('./src/routes/statsRouter')
-
+const imageUpload = require('./src/routes/uploadImageRoute')
 
 //! middleware
 app.use(express.json())
 app.use(cors({
     //! frontend url  
-    origin:"http://localhost:5173",
-    credentials:true
+    origin: "http://localhost:5173",
+    credentials: true
 }))
 app.use(bodyParser.json())
 app.use(cookieParser());
 
 
+
+//!  utills folder UploadImage.js import
+app.use('/image-upload', imageUpload ) 
+
 //! use userRoute
 //* first ai route tar por userRoute.js file route
 //* /api/auth/(userRoute.js)
-app.use('/api/auth',userRoute)
+app.use('/api/auth', userRoute)
 
 //! use productsRoute
 //* first ai route tar por productsRoute.js file route
@@ -58,6 +62,7 @@ app.use('/api/orders', orderRoute)
 app.use('/api/stats', statsRouter)
 
 
+
 //! mongoose and mongoBD connection
 async function main() {
     await mongoose.connect(process.env.DB_URL)
@@ -70,9 +75,9 @@ async function main() {
 }
 
 
-
 main().then(() => console.log("MongoBD connected successfully"))
     .catch((ee) => console.log(ee))
+
 
 
 app.listen(port, () => {

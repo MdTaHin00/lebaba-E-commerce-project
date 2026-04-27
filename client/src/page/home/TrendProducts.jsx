@@ -7,6 +7,7 @@ import products from '../../data/products.json'
 function TrendProducts() {
 
     const [visibleProducts, setVisibleProducts] = useState(8)
+  
 
     const handelMoreProduct = ()=>{
         setVisibleProducts((pre)=> pre + 4)

@@ -45,6 +45,7 @@ function ShopPage() {
     limit: productPerPage
   })
 
+  
   //! page change function 
   const handelPageChange = (pageNumber) => {
     if (pageNumber > 0 && pageNumber <= totalPage) {
@@ -89,7 +90,7 @@ function ShopPage() {
             <ProductCards filterProducts={product} />
 
             {/* pagination */}
-            {product.length>0 &&              <div className='mt-6 flex justify-center space-x-2'>
+            {product.length>0 &&   <div className='mt-6 flex justify-center space-x-2'>
               <button className='px-4 py-2 bg-gray-200 rounded-full'
                 onClick={() => handelPageChange(currentPage - 1)}
                 disabled={currentPage === 1}

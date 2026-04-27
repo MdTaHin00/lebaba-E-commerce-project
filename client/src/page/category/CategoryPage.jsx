@@ -5,14 +5,15 @@ import ProductCards from '../shop/ProductCards';
 import products from '../../data/products.json'
 
 function CategoryPage() {
-
-    const {categoryName} = useParams()
+   const {categoryName} = useParams()
     const[filterProducts,setFilterProducts] = useState([])
+
 
     useEffect(()=>{
         const filter = products.filter((product)=> product.category === categoryName.toLowerCase());
         setFilterProducts(filter)
     },[])
+
 
 
   return (

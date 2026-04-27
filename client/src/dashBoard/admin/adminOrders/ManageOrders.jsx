@@ -3,6 +3,7 @@ import { useDeleteOrderByIdMutation, useGetAllOrdersQuery } from '../../../redux
 import Loading from '../../../components/Loading';
 import { Link } from 'react-router';
 import EditOrders from './EditOrders';
+import SingleProducts from '../../../page/shop/productDetails/SingleProducts';
 
 
 const getStatusColor = (status) => {
@@ -86,7 +87,7 @@ function ManageOrders() {
                             <td className="py-3 px-4 border-b">{new Date(order?.updatedAt).toLocaleDateString()}</td>
                             <td className="py-3 px-4   border-b flex items-center space-x-4">
                                 <Link
-                                    to="#"
+                                    to={order?._id}
                                     className="text-blue-500 hover:underline"
                                 >
                                     View
