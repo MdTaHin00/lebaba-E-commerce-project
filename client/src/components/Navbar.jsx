@@ -92,9 +92,6 @@ function Navbar() {
             } to="/shop">Shop</NavLink></li>
             <li><NavLink className={({ isActive }) =>
               isActive ? "text-red-500 font-medium" : ""
-            } to="/pages">Pages</NavLink></li>
-            <li><NavLink className={({ isActive }) =>
-              isActive ? "text-red-500 font-medium" : ""
             } to="/contact">Contact</NavLink></li>
           </ul>
           <div className="nav__logo">

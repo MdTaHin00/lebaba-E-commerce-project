@@ -1,7 +1,13 @@
-import React, { useState } from 'react'
+// import React, { useState } from 'react'
+import OrderCount from './OrderCount'
 
 function ViewsOrders({ handelViewsOrdersClose, order }) {
 
+    let Id = '';
+
+   for (let i = 0; i < order.products.length; i++) {
+      Id = order.products[i].productId;
+    }
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black/40 ">
@@ -17,10 +23,12 @@ function ViewsOrders({ handelViewsOrdersClose, order }) {
                     <p className='capitalize'><strong>Orders Amount: $</strong><span className='text-sky-500/50 font-bold'> {order.amount}</span></p>
                     <p className='capitalize'><strong>Create Date:</strong> <span>{new Date(order?.updatedAt).toLocaleDateString()}</span></p>
                     <p className='capitalize'><strong>Orders Quantity: </strong>
-                    <span>{}</span>
+                        <span>
+                            <OrderCount p={order.products} />
+                        </span>
                     </p>
                     <p className='capitalize'><strong>Order Product Id: </strong>
-                    <span>{}</span>
+                        <span>{Id}</span>
                     </p>
                 </div>
                 <button onClick={handelViewsOrdersClose} className='bg-red-500 hover:bg-red-600 px-2 py-1 text-white rounded-md mt-5'>Cancel</button>

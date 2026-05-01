@@ -22,6 +22,7 @@ import ManageOrders from "../dashBoard/admin/adminOrders/ManageOrders";
 import AddProduct from "../dashBoard/admin/addProduct/AddProduct";
 import ManageProducts from "../dashBoard/admin/manageProducts/ManageProducts";
 import ManageUpdateProduct from "../dashBoard/admin/manageProducts/ManageUpdateProduct";
+import Contact from "../components/Contact";
 
 const router = createBrowserRouter([
     {
@@ -52,8 +53,8 @@ const router = createBrowserRouter([
                 element: <PaymentSuccess />
             },
             {
-                path: "/about",
-                element: <div>About</div>
+                path: "/contact",
+                element: <Contact/>
             },
             {
                 path:"/orders/:orderId",
